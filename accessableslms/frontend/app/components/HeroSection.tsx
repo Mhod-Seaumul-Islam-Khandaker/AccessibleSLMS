@@ -56,14 +56,14 @@ export default function HeroSection() {
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4">
             <Link
-              href="/signup"
+              href="/authentication/signup"
               className="inline-flex items-center justify-center rounded-lg bg-blue-600 px-6 py-3 text-base font-medium text-white hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 transition-colors"
             >
               Get Started Free
               <ArrowRight className="ml-2 h-5 w-5" />
             </Link>
             <Link
-              href="/login"
+              href="/authentication/login"
               className="inline-flex items-center justify-center rounded-lg border border-gray-300 px-6 py-3 text-base font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-800 transition-colors"
             >
               Existing User? Log In

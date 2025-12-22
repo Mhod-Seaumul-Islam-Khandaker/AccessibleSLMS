@@ -56,13 +56,13 @@ export default function Header() {
             {/* Action Buttons */}
             <div className="flex items-center space-x-4">
               <Link
-                href="/login"
+                href="/authentication/login"
                 className="text-sm font-medium text-blue-600 hover:text-blue-700 dark:text-blue-400"
               >
                 Log in
               </Link>
               <Link
-                href="/signup"
+                href="authentication/signup"
                 className="rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600"
               >
                 Sign up
@@ -116,14 +116,14 @@ export default function Header() {
               </Link>
               <div className="border-t border-gray-200 dark:border-gray-800 pt-3">
                 <Link
-                  href="/login"
+                  href="/authentication/login"
                   className="block px-4 py-2 text-base font-medium text-blue-600 hover:text-blue-700 dark:text-blue-400"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   Log in
                 </Link>
                 <Link
-                  href="/signup"
+                  href="/authentication/signup"
                   className="block mx-4 mt-2 rounded-lg bg-blue-600 px-4 py-2 text-base font-medium text-white hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600"
                   onClick={() => setIsMenuOpen(false)}
                 >

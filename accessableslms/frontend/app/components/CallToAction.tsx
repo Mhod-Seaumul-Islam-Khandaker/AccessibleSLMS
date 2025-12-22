@@ -35,13 +35,13 @@ export default function CallToAction() {
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
-                href="/signup"
+                href="/authentication/signup"
                 className="inline-flex items-center justify-center rounded-lg bg-white px-8 py-3 text-lg font-semibold text-blue-600 hover:bg-gray-100 transition-colors"
               >
                 Start Free Today
               </Link>
               <Link
-                href="/login"
+                href="/authentication/login"
                 className="inline-flex items-center justify-center rounded-lg border-2 border-white px-8 py-3 text-lg font-semibold text-white hover:bg-white/10 transition-colors"
               >
                 Schedule a Demo
