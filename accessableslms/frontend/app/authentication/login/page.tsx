@@ -2,30 +2,8 @@
 'use client';
 import { useState, ChangeEvent, FormEvent } from 'react';
 import { createClient } from '@supabase/supabase-js';
-
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL || '',
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ''
-);
-
-interface LoginFormData {
-  email: string;
-  password: string;
-}
-
-interface Message {
-  type: 'error' | 'success' | '';
-  text: string;
-}
-
-interface UserAccount {
-  id: number;
-  full_name: string;
-  email: string;
-  role: 'student' | 'teacher' | 'admin';
-  student_id: string | null;
-  employee_id: string | null;
-}
+import {supabase} from '../../lib/supabase-client';
+import {LoginFormData, Message, UserAccount} from '../../types/form';
 
 const LoginForm = () => {
   const [formData, setFormData] = useState<LoginFormData>({
