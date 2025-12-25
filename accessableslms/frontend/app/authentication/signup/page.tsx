@@ -3,7 +3,7 @@
 import { useState, ChangeEvent, FormEvent } from 'react';
 import { createClient } from '@supabase/supabase-js';
 import type {FormData, Message} from '../../types/form';
-import {supabase} from '../../lib/supabase-client';
+import {Supabase} from '../../lib/supabase-client';
 
 const SignupForm = () => {
   const [formData, setFormData] = useState<FormData>({
@@ -80,7 +80,7 @@ const SignupForm = () => {
         employee_id: (formData.role === 'teacher' || formData.role === 'admin') ? formData.employee_id : null
       };
 
-      const { data, error: supabaseError } = await supabase
+      const { data, error: supabaseError } = await Supabase
         .from('user_account')
         .insert([userData])
         .select();

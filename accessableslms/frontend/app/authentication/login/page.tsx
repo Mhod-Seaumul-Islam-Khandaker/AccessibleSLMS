@@ -2,7 +2,7 @@
 'use client';
 import { useState, ChangeEvent, FormEvent } from 'react';
 import { createClient } from '@supabase/supabase-js';
-import {supabase} from '../../lib/supabase-client';
+import {Supabase} from '../../lib/supabase-client';
 import {LoginFormData, Message, UserAccount} from '../../types/form';
 
 const LoginForm = () => {
@@ -36,7 +36,7 @@ const LoginForm = () => {
 
     try {
       // Query the database for user with matching email and password
-      const { data: users, error } = await supabase
+      const { data: users, error } = await Supabase
         .from('user_account')
         .select('*')
         .eq('email', formData.email)
@@ -61,15 +61,15 @@ const LoginForm = () => {
         text: `Login successful! Welcome back, ${user.full_name}. Role: ${user.role}` 
       });
       
-      // Store user data in localStorage or state management
-      localStorage.setItem('user', JSON.stringify({
+      // Store user data in cookie
+      document.cookie = "user=" + JSON.stringify({
         id: user.id,
         name: user.full_name,
         email: user.email,
         role: user.role,
         student_id: user.student_id,
         employee_id: user.employee_id
-      }));
+      }) + "; path=/";
       
       // Reset form
       setFormData({ email: '', password: '' });
