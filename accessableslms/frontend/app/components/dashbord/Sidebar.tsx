@@ -1,8 +1,9 @@
+// app/components/dashbord/Sidebar.tsx
 "use client";
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useAccessibility } from '@/contexts/AccessibilityContext';
+import { useAccessibility } from '../../context/AccessibilityContext';
 import { Home, Users, Calendar, GraduationCap, Settings } from 'lucide-react';
 
 interface NavItem {

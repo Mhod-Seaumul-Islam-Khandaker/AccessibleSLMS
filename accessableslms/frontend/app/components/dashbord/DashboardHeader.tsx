@@ -1,7 +1,8 @@
+// app/components/dashbord/DashboardHeader.tsx
 "use client";
 
-import { useAuth } from '@/hooks/useAuth';
-import { useAccessibility } from '@/contexts/AccessibilityContext';
+import { useAuth } from '../../hooks/useAuth';
+import { useAccessibility } from '../../context/AccessibilityContext';
 import Link from 'next/link';
 import { LogOut, Settings as SettingsIcon } from 'lucide-react';
 
