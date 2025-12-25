@@ -2,7 +2,7 @@
 "use client";
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { supabase} from '../lib/supabase-client';
+import { Supabase} from '../lib/supabase-client';
 
 interface AccessibilitySettings {
   font_size: number;
@@ -32,7 +32,7 @@ const AccessibilityContext = createContext<AccessibilityContextType | undefined>
 export function AccessibilityProvider({ children }: { children: React.ReactNode }) {
   const [settings, setSettings] = useState<AccessibilitySettings>(defaultSettings);
   const [loading, setLoading] = useState(true);
-  const Supabase = createClientComponentClient();
+  const supabase = Supabase;
 
   // Calculate font size multiplier (1x or 1.25x)
   const fontSizeMultiplier = settings.font_size >= 18 ? 1.25 : 1;
@@ -72,7 +72,7 @@ export function AccessibilityProvider({ children }: { children: React.ReactNode 
       const userData = JSON.parse(decodeURIComponent(userCookie.split('=')[1]));
       
       // Fetch accessibility settings from Supabase
-      const { data, error } = await Supabase
+      const { data, error } = await supabase
         .from('accessibility_settings')
         .select('*')
         .eq('id', userData.id)
@@ -95,7 +95,7 @@ export function AccessibilityProvider({ children }: { children: React.ReactNode 
 
   const createDefaultSettings = async (userId: number) => {
     try {
-      const { error } = await Supabase
+      const { error } = await supabase
         .from('accessibility_settings')
         .insert([{ id: userId, ...defaultSettings }]);
       
@@ -117,7 +117,7 @@ export function AccessibilityProvider({ children }: { children: React.ReactNode 
       const userData = JSON.parse(decodeURIComponent(userCookie.split('=')[1]));
       const updatedSettings = { ...settings, ...newSettings };
 
-      const { error } = await Supabase
+      const { error } = await supabase
         .from('accessibility_settings')
         .update(newSettings)
         .eq('id', userData.id);
