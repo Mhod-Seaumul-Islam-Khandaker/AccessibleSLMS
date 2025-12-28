@@ -5,6 +5,8 @@ import { useAuth } from '../hooks/useAuth';
 import { useAccessibility } from '../context/AccessibilityContext';
 import DashboardLayout from '../components/dashbord/DashboardLayout';
 import { useEffect, useState } from 'react';
+import { Supabase } from '../lib/supabase-client';
+import { Section, Course } from '../types/course';
 
 const greetings = [
   "Welcome back",
@@ -32,12 +34,34 @@ export default function StudentDashboardPage() {
   const { fontSizeMultiplier } = useAccessibility();
   const [greeting, setGreeting] = useState('');
   const [motivation, setMotivation] = useState('');
+  const [enrolledCourses, setEnrolledCourses] = useState<any[]>([]);
 
   useEffect(() => {
     // Set random greeting and motivation on mount
     setGreeting(greetings[Math.floor(Math.random() * greetings.length)]);
     setMotivation(motivationalQuotes[Math.floor(Math.random() * motivationalQuotes.length)]);
-  }, []);
+
+    // Fetch enrolled courses
+    if (user) {
+      fetchEnrolledCourses();
+    }
+  }, [user]);
+
+  const fetchEnrolledCourses = async () => {
+    if (!user) return;
+    try {
+      const { data, error } = await Supabase
+        .from('enrollment')
+        .select('*, sections(*, course(*))')
+        .eq('student_id', user.id);
+
+      if (error) throw error;
+
+      setEnrolledCourses(data?.map(item => item.sections) || []);
+    } catch (error) {
+      console.error('Error fetching enrolled courses:', error);
+    }
+  };
 
   if (!user) return null;
 
@@ -94,6 +118,55 @@ export default function StudentDashboardPage() {
               </blockquote>
             </div>
           </div>
+        </div>
+
+        {/* Enrolled Courses Section */}
+        <div className="mt-8">
+          <h2 
+            className="text-2xl font-bold text-gray-900 dark:text-white mb-4"
+            style={{ fontSize: `${24 * fontSizeMultiplier}px` }}
+          >
+            Your Enrolled Courses
+          </h2>
+          {enrolledCourses.length === 0 ? (
+            <p 
+              className="text-gray-600 dark:text-gray-400"
+              style={{ fontSize: `${16 * fontSizeMultiplier}px` }}
+            >
+              No courses enrolled yet. <a href="/student/course-selection" className="text-blue-600 hover:underline">Select courses</a>
+            </p>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {enrolledCourses.map(section => (
+                <div key={section.id} className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-sm border border-gray-200 dark:border-gray-700">
+                  <h3 
+                    className="text-lg font-semibold text-gray-900 dark:text-white mb-2"
+                    style={{ fontSize: `${18 * fontSizeMultiplier}px` }}
+                  >
+                    {section.course?.course_code}: {section.course?.title}
+                  </h3>
+                  <p 
+                    className="text-gray-600 dark:text-gray-400 mb-2"
+                    style={{ fontSize: `${14 * fontSizeMultiplier}px` }}
+                  >
+                    Section: {section.section_label}
+                  </p>
+                  <p 
+                    className="text-gray-600 dark:text-gray-400 mb-2"
+                    style={{ fontSize: `${14 * fontSizeMultiplier}px` }}
+                  >
+                    Location: {section.location}
+                  </p>
+                  <p 
+                    className="text-sm text-gray-500 dark:text-gray-500"
+                    style={{ fontSize: `${12 * fontSizeMultiplier}px` }}
+                  >
+                    Credits: {section.course?.credits}
+                  </p>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
 
         {/* Quick Stats or Additional Content */}
