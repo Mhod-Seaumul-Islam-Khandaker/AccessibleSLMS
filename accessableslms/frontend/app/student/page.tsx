@@ -104,7 +104,7 @@ export default function StudentDashboardPage() {
             className="text-gray-900 dark:text-white font-bold mb-2"
             style={{ fontSize: `${32 * fontSizeMultiplier}px` }}
           >
-            {greeting}, {user.name}!
+            {greeting}, {user.full_name}!
           </h2>
           <p 
             className="text-gray-600 dark:text-gray-400"
