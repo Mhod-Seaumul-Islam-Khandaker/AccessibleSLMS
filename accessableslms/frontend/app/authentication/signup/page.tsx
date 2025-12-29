@@ -1,11 +1,13 @@
 // signup/page.tsx
 "use client";
 import { useState, ChangeEvent, FormEvent } from 'react';
+import { useRouter } from 'next/navigation';
 import { createClient } from '@supabase/supabase-js';
 import type {FormData, Message} from '../../types/form';
 import {Supabase} from '../../lib/supabase-client';
 
 const SignupForm = () => {
+  const router = useRouter();
   const [formData, setFormData] = useState<FormData>({
     full_name: '',
     email: '',
@@ -102,6 +104,9 @@ const SignupForm = () => {
         type: 'success', 
         text: 'Signup successful! You can now log in.' 
       });
+      
+      // Redirect to homepage after successful signup
+      router.push('/');
       
       // Reset form on success
       setFormData({

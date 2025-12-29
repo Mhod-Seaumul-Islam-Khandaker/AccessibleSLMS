@@ -5,13 +5,14 @@ import { useAuth } from '../../hooks/useAuth';
 import { useAccessibility } from '../../context/AccessibilityContext';
 import Link from 'next/link';
 import { LogOut, Settings as SettingsIcon } from 'lucide-react';
+import VoiceNavigation from '../VoiceNavigation';
 
 interface DashboardHeaderProps {
   title?: string;
 }
 
 export default function DashboardHeader({ title = "Student dashboard" }: DashboardHeaderProps) {
-  const { logout } = useAuth();
+  const { user, logout } = useAuth();
   const { fontSizeMultiplier } = useAccessibility();
 
   return (
@@ -41,15 +42,18 @@ export default function DashboardHeader({ title = "Student dashboard" }: Dashboa
           </h1>
         </div>
 
-        <button
-          onClick={logout}
-          className="flex items-center gap-2 px-4 py-2 bg-red-600 hover:bg-red-700 dark:bg-red-500 dark:hover:bg-red-600 text-white rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
-          style={{ fontSize: `${16 * fontSizeMultiplier}px` }}
-          aria-label="Logout"
-        >
-          <LogOut size={18} aria-hidden="true" />
-          <span className="font-medium">Logout</span>
-        </button>
+        <div className="flex items-center gap-4">
+          {user && <VoiceNavigation role={user.role} />}
+          <button
+            onClick={logout}
+            className="flex items-center gap-2 px-4 py-2 bg-red-600 hover:bg-red-700 dark:bg-red-500 dark:hover:bg-red-600 text-white rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
+            style={{ fontSize: `${16 * fontSizeMultiplier}px` }}
+            aria-label="Logout"
+          >
+            <LogOut size={18} aria-hidden="true" />
+            <span className="font-medium">Logout</span>
+          </button>
+        </div>
       </div>
     </header>
   );
