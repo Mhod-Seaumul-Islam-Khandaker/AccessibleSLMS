@@ -42,6 +42,7 @@ CREATE TABLE course (
     CONSTRAINT uq_course_code UNIQUE (course_code)
 );
 
+
 -- section
 CREATE TABLE section (
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
@@ -53,9 +54,12 @@ CREATE TABLE section (
         CHECK (status IN ('open', 'closed')),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    CONSTRAINT fk_section_course FOREIGN KEY (course_id)
-        REFERENCES course(id) ON DELETE CASCADE
+    CONSTRAINT fk_sections_course
+        FOREIGN KEY (course_id)
+        REFERENCES courses(id)
+        ON DELETE CASCADE
 );
+
 
 -- schedule
 CREATE TABLE schedule (
@@ -90,11 +94,22 @@ CREATE TABLE enrollment (
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     section_id INT NOT NULL,
     student_id INT NOT NULL,
-    CONSTRAINT fk_enrollment_section FOREIGN KEY (section_id)
-        REFERENCES section(id) ON DELETE CASCADE,
-    CONSTRAINT fk_enrollment_student FOREIGN KEY (student_id)
-        REFERENCES user_account(id) ON DELETE CASCADE
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT fk_enrollments_section
+        FOREIGN KEY (section_id)
+        REFERENCES sections(id)
+        ON DELETE CASCADE,
+
+    CONSTRAINT fk_enrollments_student
+        FOREIGN KEY (student_id)
+        REFERENCES user_account(id)
+        ON DELETE CASCADE,
+
+    CONSTRAINT uq_student_section
+        UNIQUE (student_id, section_id)
 );
+
 
 -- accessibility_settings
 CREATE TABLE accessibility_settings (
