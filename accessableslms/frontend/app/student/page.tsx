@@ -4,7 +4,6 @@
 import { useAuth } from '../hooks/useAuth';
 import { useAccessibility } from '../context/AccessibilityContext';
 import DashboardLayout from '../components/dashbord/DashboardLayout';
-import ClassSchedule from '../components/ClassSchedule';
 import { useEffect, useState, useCallback } from 'react';
 import { Supabase } from '../lib/supabase-client';
 import { Section } from '../types/course';
@@ -204,11 +203,6 @@ export default function StudentDashboardPage() {
               </div>
             </div>
           )}
-        </div>
-
-        {/* Class Schedule Section */}
-        <div className="mt-8">
-          <ClassSchedule enrolledCourses={enrolledCourses} />
         </div>
 
         {/* Quick Stats or Additional Content */}
