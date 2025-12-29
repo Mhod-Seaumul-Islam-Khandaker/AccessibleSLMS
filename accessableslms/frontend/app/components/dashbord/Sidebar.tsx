@@ -4,7 +4,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useAccessibility } from '../../context/AccessibilityContext';
-import { Home, Users, Calendar, GraduationCap, Settings } from 'lucide-react';
+import { Home, Users, Calendar, GraduationCap, Settings, BookOpen, FileText, UserCheck } from 'lucide-react';
 
 interface NavItem {
   label: string;
@@ -19,6 +19,13 @@ const studentNavItems: NavItem[] = [
   { label: 'Faculties', href: '/student/faculties', icon: <GraduationCap size={20} /> },
 ];
 
+const adminNavItems: NavItem[] = [
+  { label: 'Dashboard', href: '/admin', icon: <Home size={20} /> },
+  { label: 'Courses', href: '/admin/courses', icon: <BookOpen size={20} /> },
+  { label: 'Sections', href: '/admin/sections', icon: <FileText size={20} /> },
+  { label: 'Users', href: '/admin/users', icon: <UserCheck size={20} /> },
+];
+
 export default function Sidebar({ role }: { role: 'student' | 'teacher' | 'admin' }) {
   const pathname = usePathname();
   const { fontSizeMultiplier } = useAccessibility();
@@ -31,7 +38,7 @@ export default function Sidebar({ role }: { role: 'student' | 'teacher' | 'admin
       case 'teacher':
         return []; // To be implemented later
       case 'admin':
-        return []; // To be implemented later
+        return adminNavItems;
       default:
         return studentNavItems;
     }
