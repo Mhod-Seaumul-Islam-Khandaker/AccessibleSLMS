@@ -53,25 +53,22 @@ const VoiceNavigation: React.FC<VoiceNavigationProps> = ({ role }) => {
   };
 
   const getCommands = (role: string): Record<string, string> => {
-    const commonCommands: Record<string, string> = {
-      'settings': '/dashboard/settings'
-    };
-
+    
     if (role === 'student') {
       return {
-        ...commonCommands,
         'home': '/student',
         'advising': '/student/advising',
         'class schedule': '/student/schedule',
-        'faculties': '/student/faculties'
+        'faculties': '/student/faculties',
+        'settings': '/student/settings'
       };
     } else if (role === 'admin') {
       return {
-        ...commonCommands,
         'dashboard': '/admin',
         'courses': '/admin/courses',
         'sections': '/admin/sections',
-        'users': '/admin/users'
+        'users': '/admin/users',
+        'settings': '/admin/settings'
       };
     } else if (role === 'teacher') {
       return {

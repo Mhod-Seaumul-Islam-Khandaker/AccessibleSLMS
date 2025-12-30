@@ -17,6 +17,7 @@ const studentNavItems: NavItem[] = [
   { label: 'Advising', href: '/student/advising', icon: <Users size={20} /> },
   { label: 'Class Schedule', href: '/student/schedule', icon: <Calendar size={20} /> },
   { label: 'Faculties', href: '/student/faculties', icon: <GraduationCap size={20} /> },
+  { label: 'Settings', href: '/student/settings', icon: <Settings size={20} /> },
 ];
 
 const adminNavItems: NavItem[] = [
@@ -24,6 +25,7 @@ const adminNavItems: NavItem[] = [
   { label: 'Courses', href: '/admin/courses', icon: <BookOpen size={20} /> },
   { label: 'Sections', href: '/admin/sections', icon: <FileText size={20} /> },
   { label: 'Users', href: '/admin/users', icon: <UserCheck size={20} /> },
+  { label: 'Settings', href: '/admin/settings', icon: <Settings size={20} /> },
 ];
 
 export default function Sidebar({ role }: { role: 'student' | 'teacher' | 'admin' }) {
