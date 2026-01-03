@@ -1,4 +1,4 @@
-# Accessible Student Life Cycle Management System (AccessibleSLMS)
+# AccessibleSLMS
 
 ## Description
 
